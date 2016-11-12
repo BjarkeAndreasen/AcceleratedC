@@ -17,14 +17,22 @@ int main()
     //Build message we intend to write
     const string greeting = "Hello, " + name + "!";
 
-    //the number of blanks surrounding the greeting
-    const int pad = 1;
+    //Ask user for the intended vertical and horizontal padding
+    cout << "Enter the desired vertical padding: ";
+    int padVertical;
+    cin >> padVertical;
+    cout << endl;
+    cout << "Enter the desired horizontal padding: ";
+    int padHorizontal;
+    cin >> padHorizontal;
+    cout << endl;
 
     //the number of rows and columns to write
-    const int rows = pad * 2 + 3;
-    const string::size_type cols = greeting.size() + pad * 2 + 2;
+    const int rows = padVertical * 2 + 3;
+    const string::size_type cols = greeting.size() + padHorizontal * 2 + 2;
 
-    //write a blank line to separate output from input
+    //writes two blank lines to separate output from input
+    cout << endl;
     cout << endl;
 
     //write rows rows of output
@@ -35,7 +43,7 @@ int main()
         //invariant: we have written c characters so far in the current row
         while (c != cols) {
             // is it time to write the greeting?
-            if (r == pad + 1 && c == pad + 1) {
+            if (r == padVertical + 1 && c == padHorizontal + 1) {
                 cout << greeting;
                 c += greeting.size();
             } else {
