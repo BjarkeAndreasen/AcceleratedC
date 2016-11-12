@@ -15,7 +15,7 @@ int main()
     cin >> name;
 
     //Build message we intend to write
-    const string greeting = "Hello, " + name + "!";
+    string greeting = "Hello, " + name + "!";
 
     //Ask user for the intended vertical and horizontal padding
     cout << "Enter the desired vertical padding: ";
@@ -28,8 +28,8 @@ int main()
     cout << endl;
 
     //the number of rows and columns to write
-    const int rows = padVertical * 2 + 3;
-    const string::size_type cols = greeting.size() + padHorizontal * 2 + 2;
+    int rows = padVertical * 2 + 3;
+    string::size_type cols = greeting.size() + padHorizontal * 2 + 2;
 
     //writes two blank lines to separate output from input
     cout << endl;
@@ -46,17 +46,21 @@ int main()
             if (r == padVertical + 1 && c == padHorizontal + 1) {
                 cout << greeting;
                 c += greeting.size();
+                //Are we on the border?
+            } else if (r==0 || r == rows - 1 || c == 0 || c == cols - 1){
+                cout << "*";
+                ++c;
+                //are we on the row with the greeting?
+            } else if (r == padVertical + 1){
+                cout << string(padHorizontal, ' ');
+                c += padHorizontal;
             } else {
-                //are we on the border?
-                if (r==0 || r == rows - 1 || c == 0 || c == cols - 1)
-                    cout << "*";
-                else
-                    cout << " ";
-                    ++c;
+                cout << string(padHorizontal*2 + greeting.size(), ' ');
+                c += padHorizontal*2 + greeting.size();
             }
-        }
+            }
         cout << endl;
-    }
+        }
 
     std::cin.clear();
     std::cin.ignore(32767, '\n');
