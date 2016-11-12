@@ -46,25 +46,21 @@ int main()
             if (r == padVertical + 1 && c == padHorizontal + 1) {
                 cout << greeting;
                 c += greeting.size();
-            }
-            //If we are on the row with the statement we only want to increment a few columns corresponding to the pad
-            //When c == padHorizontal + 1, then we must execute the greeting command.
-            else if (r == padVertical + 1 && c == 0){
-                cout << "*" + string(padHorizontal, ' ');
-                c += greeting.size() + 1;
-            } else if (r == padVertical + 1 && c == 1 + padHorizontal + greeting.size()) {
-                cout << (padHorizontal, ' ') + "*";
-            } else {
-                //are we on the border?
-                if (r==0 || r == rows - 1 || c == 0 || c == cols - 1)
-                    cout << "*";
-                else
-                    cout << " ";
+                //Are we on the border?
+            } else if (r==0 || r == rows - 1 || c == 0 || c == cols - 1){
+                cout << "*";
                 ++c;
+                //are we on the row with the greeting?
+            } else if (r == padVertical + 1){
+                cout << string(padHorizontal, ' ');
+                c += padHorizontal;
+            } else {
+                cout << string(padHorizontal*2 + greeting.size(), ' ');
+                c += padHorizontal*2 + greeting.size();
             }
-        }
+            }
         cout << endl;
-    }
+        }
 
     std::cin.clear();
     std::cin.ignore(32767, '\n');
