@@ -15,7 +15,7 @@ int main()
     cin >> name;
 
     //Build message we intend to write
-    const string greeting = "Hello, " + name + "!";
+    string greeting = "Hello, " + name + "!";
 
     //Ask user for the intended vertical and horizontal padding
     cout << "Enter the desired vertical padding: ";
@@ -28,8 +28,8 @@ int main()
     cout << endl;
 
     //the number of rows and columns to write
-    const int rows = padVertical * 2 + 3;
-    const string::size_type cols = greeting.size() + padHorizontal * 2 + 2;
+    int rows = padVertical * 2 + 3;
+    string::size_type cols = greeting.size() + padHorizontal * 2 + 2;
 
     //writes two blank lines to separate output from input
     cout << endl;
@@ -46,13 +46,21 @@ int main()
             if (r == padVertical + 1 && c == padHorizontal + 1) {
                 cout << greeting;
                 c += greeting.size();
+            }
+            //If we are on the row with the statement we only want to increment a few columns corresponding to the pad
+            //When c == padHorizontal + 1, then we must execute the greeting command.
+            else if (r == padVertical + 1 && c == 0){
+                cout << "*" + string(padHorizontal, ' ');
+                c += greeting.size() + 1;
+            } else if (r == padVertical + 1 && c == 1 + padHorizontal + greeting.size()) {
+                cout << (padHorizontal, ' ') + "*";
             } else {
                 //are we on the border?
                 if (r==0 || r == rows - 1 || c == 0 || c == cols - 1)
                     cout << "*";
                 else
                     cout << " ";
-                    ++c;
+                ++c;
             }
         }
         cout << endl;
